@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<!--------------------------------------------------->
+<!-------------------TO DO LIST HTML----------------->
+<!--------------------------------------------------->
+
+<html lang="en-us" ng-app="todoApp">    
+<script src="js/angular.js"></script>
+<script src="js/angular-resource.js"></script>
+<script src="js/controllers.js"></script>
+
+<head>
+    <title>Alex Vild's Todo List</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+  
+	<!-- Task entry -->
+
+<body ng-controller = "todoList">
+	<!-- Log in page -->
+	<div class="loginPage" ng-show="!loggedIn">
+		<h2>Log In to "To Do List"</h2>
+		<label> Log In: 
+			<input type="text" ng-model="username">
+			<input type="submit" ng-click="addusername()">
+		</label>
+	</div>
+	
+	<!-- Logged in page -->
+	<div ng-show="loggedIn">
+		
+		<span class="logOut"><a href="" ng-click="loggedIn = false">Log Out</a></span>
+		<h1>To Do List</h1> 
+        <center><a href="" ng-click = "clear_all_items()">Clear List</a> &nbsp;&nbsp;
+		<a href="" ng-click = "clear_selected()">Clear Completed</a></center>
+
+		<!-- Task entry -->
+        <p>What to do: <input autofocus type="text" ng-model="thing">
+            
+			<!-- Form options for priority and type -->
+			<form name="other_options">
+                <select ng-model="worktypeSelection" ng-options="worktype for worktype in worktypeOptions">
+					<option value="" selected>-- Choose work type --</option>
+				</select>
+                <select ng-model="prioritySelection" ng-options="priority for priority in priorityOptions">
+					<option value="" selected> -- Choose priority -- </option>
+				</select>
+                <select ng-model="assign" ng-options="assign.name for assign in usernames">
+					<option value="" selected> -- Choose username -- </option>
+				</select>
+                <input type="submit" ng-click="add()">
+            </form>
+        
+		</p>
+
+	<!-- Actual to do list -->
+	
+        <div class="block">
+            <p>To do:</p>
+            
+			<!-- List out the dynamic list items, sort by priority -->
+			<li ng-repeat = "x in items | orderBy: 'priority'"> 
+				<!-- color code priorities -->
+				
+				<span ng-class="{ cmplt: x.completed , red: x.type == 'Work', blue: x.type == 'Personal' }">
+					<b>{{ x.name }}</b></span>
+				
+				<span ng-class="{ yourChore: x.assignedTo == username , cmplt: x.completed} ">
+					- {{ x.type }} (Priority {{ x.priority }}) Assigned by {{ x.creator }} to {{ x.assignedTo }}
+				</span>&nbsp;&nbsp;
+                <!-- When task is completed, user can click this button to mark it as such -->
+				<button type="button" ng-click="markAs(x)">Completed</button>
+				<button type="button" ng-click = "comment = true">Comment</button>
+				<div ng-hide="comment" class="comment"><span ng-show="ifComment(x) == true">
+				Comments: {{ x.comments }}</span></div>
+				<div ng-show="comment"><textarea rows="3" columns="50" ng-model="x.comments"></textarea></div>
+				
+				<div align=center></div>
+				
+				<div ng-show="comment"><button type="button" ng-click="comment = false">Done</button></div>
+				<div>&nbsp;</div>
+            </li>
+	</div>
+
+	<!-- <center><p><button type="button" ng-click="updateList()">Update List</button></p></center> Before auto update -->
+	<div class="resetAll"><button id="resetButton" type="button" ng-click="clear_all()">RESET ALL</button></div>
+
+    </div>
+</body>
+</html>

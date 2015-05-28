@@ -1,0 +1,66 @@
+body{
+    background-color: white;   
+    font-family: sans-serif;
+}
+
+h1{
+    font-size: 72px;
+    color: black;
+}
+
+.block{
+    background-color: lightgrey;
+    border-style: solid;
+    border-width: 2px;
+    padding: 5px;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.red{
+	color: red;
+}
+
+.blue{
+	color: blue;
+}
+
+.green{
+	color: green;
+}
+
+.yourChore{
+	color: darkviolet;
+}
+
+.comment{
+	color: darkblue;
+	font-style: italic;
+}
+
+.logOut{
+	float: right;
+}
+
+.cmplt{
+	color: gray;
+	text-decoration: line-through;
+}
+
+#resetButton{
+	width: 20em; height: 4em;
+	font-weight: bold;
+}
+
+.resetAll{
+	padding-top: 75px;
+	text-align: center;
+}
+
+.loginPage{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -200px;	
+}
